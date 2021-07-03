@@ -22,4 +22,17 @@ member.js
 
 client 端 data 新增到 MySQL DATABASE
 
+利用express-validation 製作驗證機制
+
+-username
+
+-password
+
+-email
+
+利用JWT 取得驗證碼 
+
+進行登入機制
+
+
 
