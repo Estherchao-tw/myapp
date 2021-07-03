@@ -1,6 +1,6 @@
 // models/usersModel.js
 const db = require("../utils/shopdb");
-const UsersTest = class UsersTest {
+const MemberLogin = class MemberLogin {
 
   constructor(userid, date, name, passwordkey, img, img_name, create_date) {
     this.userid = userid;
@@ -12,7 +12,7 @@ const UsersTest = class UsersTest {
     this.create_date = create_date;
   }
 
-  static async Login(memberData) {
+  static async login(memberData) {
     let result = {};
     await db.query("SELECT * FROM users WHERE email = ? AND passwordkey = ?",memberData, function (err,rows) {
       if(err) {
@@ -24,20 +24,6 @@ const UsersTest = class UsersTest {
     })
   }
 
-  static async register(memberData) {
-    let result ={};
-    await db.query("INSERT INTO users SET ?",memberData, function (err,rows) {
-        if (err) {
-          console.log(err);
-          //result.status = "註冊失敗!",
-          //result.err = "伺服器錯誤，請稍後再試!!"
-          //reject(result);
-         
-        }
-        result.registerMenber = memberData;
-        resolve(result);
-      });
-    }
   };
 
   
@@ -48,4 +34,4 @@ const UsersTest = class UsersTest {
 //   });
 // };
 // test();
-module.exports = UsersTest;
+module.exports = MemberLogin;

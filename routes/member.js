@@ -6,7 +6,7 @@ const { check, validationResult } = require('express-validator');
 
 const modifyController = require("../controllers/modifyController");
  router.get("/", function(req, res, next) {
- res.render("member");
+ res.render("register");
  });
  
  router.post("/",[
@@ -22,5 +22,8 @@ const modifyController = require("../controllers/modifyController");
        throw new Error('兩次輸入密碼不相同')
      }return true
    }),
-   check('email').isEmail().trim().escape().normalizeEmail().withMessage('信箱格式錯誤')],modifyController.getUsers)
+   check('email').isEmail().trim().escape().normalizeEmail().withMessage('信箱格式錯誤')],modifyController.getUsers);
+  
+
+router.post("/", modifyController.getLogin);
 module.exports = router;

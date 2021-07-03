@@ -1,6 +1,7 @@
 // controllers/usersController.js
 const { validationResult } = require('express-validator');
-const UsersTest = require("../models/registerModel");
+const Register = require("../models/registerModel");
+const MemberLogin = require("../models/loginModel");
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
   // Build your resulting errors however you want! String, object, whatever - it works!
   return `${value}${location}[${param}]: ${msg}`;
@@ -8,10 +9,6 @@ const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
 
 
 exports.getUsers = async (req, res, next) => {
-
-
-  // 將註冊表單的資訊保留起來
-  const { name, email, password, confirmPassword } = req.body
   // 從請求中提取所有錯誤訊息，並將回傳的 Result 物件存在 errors 變數中
   const errors = validationResult(req).formatWith(errorFormatter);
   // 如果有錯誤訊息＝驗證失敗
@@ -33,13 +30,25 @@ exports.getUsers = async (req, res, next) => {
 
   }
   console.log(memberData);
+  //email 是否註冊過
+
     
   //寫入資料庫
-  UsersTest.register(memberData).then((err,result) => {
+
+  Register.register(memberData).then((err,result) => {
     if (err) {
       console.log(err);
     }
-    res.redirect('/member');
+    //res.redirect('/');
+    res.redirect('/login');
   });
     
+};
+
+exports.getLogin = async (req,res,next) => {
+  MemberLogin.login(memberData).then((err,result) => {
+    if (err) {console.log(err);}
+    console.log(memberData.email);
+    res.redirect("/");
+  })
 };
