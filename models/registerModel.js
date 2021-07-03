@@ -12,6 +12,7 @@ const UsersTest = class UsersTest {
     this.create_date = create_date;
   }
 
+
   static async register(memberData) {
     let result ={};
     await db.query("INSERT INTO users SET ?",memberData, function (err,rows) {

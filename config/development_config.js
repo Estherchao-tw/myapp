@@ -10,7 +10,8 @@ module.exports = {
     password: process.env["DB_PASS"],
     database: process.env["DB"],
     dateStrings: process.env["DB_DATESTRINGS"],
-  }
+  },
+  secret: process.env["MY_SECRET"]
 }
 //console.log(require('dotenv').config())
 // console.log(process.env["DB_HOST"]); //DB_HOST
@@ -18,4 +19,4 @@ module.exports = {
 // console.log(process.env["DB_USER"]); //DB_USER
 // console.log(process.env["DB_PASS"]); //DB_PASS
 console.log(process.env["DB"]); 
-console.log(process.env["DB_DATESTRINGS"]); //DATE
+console.log(process.env["MY_SECRET"]); //DATE

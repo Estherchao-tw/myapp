@@ -1,5 +1,6 @@
 <%- include('header') %>
 
+
 <table>
 <form action="./member" method="post">
     <table border="0px" width="600px" height="400px" align="center" cellpadding="0px" cellspacing="0px">
@@ -18,7 +19,7 @@
     </tr>
     <tr>
       <td align="center"><b>確認密碼</b></td>
-      <td><input type="password" name="rpassword" /></td>
+      <td><input type="password" name="confirmPassword" /></td>
     </tr>
     <tr>
       <td align="center"><b>Email</b></td>
@@ -36,15 +37,9 @@
     <tr>
       <td colspan="2" align="center"> <input type="button" data-bs-toggle="modal"
         data-bs-target="#exampleModal" value="註冊" /> <input type="reset" value="重置" /> </td>
-    </tr>
 
- 
-      <!-- Button trigger modal -->
-      <!-- <button type="button" class="btn btn-primary" style="margin-bottom: 50px" data-bs-toggle="modal"
-        data-bs-target="#exampleModal">
-        傳送
-      </button>
-     -->
+    </tr>
+  
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
