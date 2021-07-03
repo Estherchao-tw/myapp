@@ -1,4 +1,4 @@
-{
+[{
   
   "apps": [{
           "name"  : "myapp",
@@ -13,4 +13,5 @@
           "log_date_format": "MM-DD-YYYY HH:MM Z",
           "error_file": "myapp_err.log",
           "out_file": "myapp_out.log"
+        }]
 }]

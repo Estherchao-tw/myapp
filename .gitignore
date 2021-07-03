@@ -1,0 +1,6 @@
+#myapp .gitignore
+#ignore secret.ymal
+secret.ymal
+
+# dotenv environment variables file
+.env

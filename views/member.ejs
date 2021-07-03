@@ -1,0 +1,72 @@
+<%- include('header') %>
+
+<table>
+<form action="./member" method="post">
+    <table border="0px" width="600px" height="400px" align="center" cellpadding="0px" cellspacing="0px">
+    <tr height="40px">
+      <td colspan="2">
+        <font size="4"><b>用戶註冊 USER REGISTER</b></font>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><b>用戶名</b></td>
+      <td><input type="text" name="user" /></td>
+    </tr>
+    <tr>
+      <td align="center"><b>密碼</b></td>
+      <td><input type="password" name="password" /></td>
+    </tr>
+    <tr>
+      <td align="center"><b>確認密碼</b></td>
+      <td><input type="password" name="rpassword" /></td>
+    </tr>
+    <tr>
+      <td align="center"><b>Email</b></td>
+      <td><input type="text" name="email" /></td>
+    </tr>
+    <tr>
+      <td align="center"><b>姓名</b></td>
+      <td><input type="text" name="username" /></td>
+    </tr>
+    
+    <tr>
+      <td align="center"><b>驗證碼</b></td>
+      <td> <input type="text" name="yzm" /> <img src="../img/yzm.png" width="60" height="30" /> </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center"> <input type="button" data-bs-toggle="modal"
+        data-bs-target="#exampleModal" value="註冊" /> <input type="reset" value="重置" /> </td>
+    </tr>
+
+ 
+      <!-- Button trigger modal -->
+      <!-- <button type="button" class="btn btn-primary" style="margin-bottom: 50px" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
+        傳送
+      </button>
+     -->
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">溫馨提醒</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h2>註冊後即可重新登入唷!!</h2>
+              <p>謝謝您完成註冊表單的填寫。</p>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">關閉</button>
+            </div>
+          </div>
+        </div>
+      </div>
+   
+</form>
+</table>
+
+
+
+        <%- include('footer') %>
