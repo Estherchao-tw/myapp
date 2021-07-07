@@ -1,11 +1,12 @@
-// controllers/usersController.js
+// controllers/modifyController.js
 const { validationResult } = require('express-validator');
 const Register = require("../models/registerModel");
-const MemberLogin = require("../models/loginModel");
+const encryption = require('../models/encryption');
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
   // Build your resulting errors however you want! String, object, whatever - it works!
   return `${value}${location}[${param}]: ${msg}`;
 };
+
 
 
 exports.getUsers = async (req, res, next) => {
@@ -22,11 +23,13 @@ exports.getUsers = async (req, res, next) => {
     //   errorMessages: errors.array()});
     //   return;
   };
+
+  //密碼加密
   //client data
   const memberData = {
     name: req.body.username,
     email: req.body.email,
-    passwordkey: req.body.password,
+    passwordkey: encryption(req.body.password),
 
   }
   console.log(memberData);
@@ -35,20 +38,23 @@ exports.getUsers = async (req, res, next) => {
     
   //寫入資料庫
 
-  Register.register(memberData).then((err,result) => {
+  Register.register(memberData).then((rows,err,result) => {
     if (err) {
       console.log(err);
+      res.render('register', { identify: rows});
+    } else if (rows.check_E != "pass") {
+      res.status(422).json({
+        errorMessages: rows.check_E,
+      });
+    
+    } else if (rows.check_E == "pass") {
+      
+      //res.redirect('/');
+      res.redirect('/login');
     }
-    //res.redirect('/');
-    res.redirect('/login');
+    return;
+
   });
     
 };
 
-exports.getLogin = async (req,res,next) => {
-  MemberLogin.login(memberData).then((err,result) => {
-    if (err) {console.log(err);}
-    console.log(memberData.email);
-    res.redirect("/");
-  })
-};

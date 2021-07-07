@@ -1,4 +1,5 @@
-// models/usersModel.js
+// models/registerModel.js
+const { check } = require("express-validator");
 const db = require("../utils/shopdb");
 const UsersTest = class UsersTest {
 
@@ -15,21 +16,41 @@ const UsersTest = class UsersTest {
 
   static async register(memberData) {
     let result ={};
-    await db.query("INSERT INTO users SET ?",memberData, function (err,rows) {
-        if (err) {
-          console.log(err);
-          //result.status = "註冊失敗!",
-          //result.err = "伺服器錯誤，請稍後再試!!"
-          //reject(result);
-         
-        }
-        result.registerMenber = memberData;
-        resolve(result);
+    var result_e;
+    var i =0;
+    var check_e="pass";
+    const sql_e1 = "SELECT * FROM users";
+    
+    //判斷信箱重複註冊
+    await db.query(sql_e1)
+      .then(([rows]) => {
+        // console.log(memberData.email);
+        for (i=0 ;i< rows.length; i++) {
+          result_e = rows[i].email;
+          if (memberData.email == result_e) {
+            console.log(result_e);
+              check_e = "此信箱已註冊過。";
+              break;
+            }
+          // console.log(result_e);
+          }
+          result = { code: 1, checkE: check_e };
+        
+      }, (error) => {
+        console.log(error);
       });
-    }
-  };
-
-  
+      //新增註冊資料
+    await db.query("INSERT INTO users (name,email,passwordkey) VALUES (?,?,?)", [memberData.name, memberData.email, memberData.passwordkey])
+    .then(([rows]) => {
+      // console.log(rows);
+      result = { code:0, check_E: check_e};
+    }, (error) => {
+      console.log(error);
+      result = {code: -1};
+    });
+      return result;
+  }
+};
 // Testing
 // const test = async function (req, res) {
 //   await Users.fetchAll().then(([rows]) => {

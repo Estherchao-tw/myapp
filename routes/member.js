@@ -6,7 +6,7 @@ const { check, validationResult } = require('express-validator');
 
 const modifyController = require("../controllers/modifyController");
  router.get("/", function(req, res, next) {
- res.render("register");
+   res.render("register");
  });
  
  router.post("/",[
@@ -24,6 +24,4 @@ const modifyController = require("../controllers/modifyController");
    }),
    check('email').isEmail().trim().escape().normalizeEmail().withMessage('信箱格式錯誤')],modifyController.getUsers);
   
-
-router.post("/", modifyController.getLogin);
 module.exports = router;
