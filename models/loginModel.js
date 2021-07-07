@@ -19,9 +19,6 @@ const MemberLogin = class MemberLogin {
   static async login(memberData) {
     let result = {};
     var i ;
-    var result_e
-    var result_p;
-    var check_e = "success";
     var check_p = "success";
     
     const sql ="SELECT userid, email, passwordkey, name FROM users";
@@ -59,7 +56,12 @@ const MemberLogin = class MemberLogin {
       });
       return result;
     }
+    
+    static async varifyToken(token) {
+      return;
+    }
   };
+
 
   
 // Testing

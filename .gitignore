@@ -4,3 +4,5 @@ secret.ymal
 
 # dotenv environment variables file
 .env
+
+varification.js

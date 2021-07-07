@@ -23,5 +23,11 @@ const modifyController = require("../controllers/modifyController");
      }return true
    }),
    check('email').isEmail().trim().escape().normalizeEmail().withMessage('信箱格式錯誤')],modifyController.getUsers);
+
+
+router.get('/', function (req, res, next) {
+  res.render('login');
+});
+router.post("/", modifyController.getLogin);
   
 module.exports = router;
