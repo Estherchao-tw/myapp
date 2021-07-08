@@ -6,7 +6,7 @@ ubuntu on vmware with nginx express
 ![image](https://github.com/maxinechao/myapp/blob/main/%E8%A8%BB%E5%86%8A%E5%9C%96.jpg)
 
 
-![image](https://github.com/maxinechao/myapp/blob/main/%E5%89%8D%E7%AB%AF%E9%A9%97%E8%AD%89.jpgl)
+![image](https://github.com/maxinechao/myapp/blob/main/%E5%89%8D%E7%AB%AF%E9%A9%97%E8%AD%89.jpg)
 
 註冊驗證
 
