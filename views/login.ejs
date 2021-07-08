@@ -1,31 +1,30 @@
 <%- include('header') %>
-<link rel='stylesheet' href='../stylesheets/login.css' />
-<div class="sidenav">
-  <div class="login-main-text">
-    <h2>Application<br> Login Page</h2>
-    <p>Login or register from here to access.</p>
-  </div>
-</div>
-<div class="main">
-  <div class="col-md-6 col-sm-12">
-    <div class="login-form">
-      <form action="./login" method="post">
-        <div class="form-group">
-          <label>User Email</label>
-          <input type="text" name="email" class="form-control" placeholder="User Email">
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" class="form-control" placeholder="Password">
-        </div>
-        <button type="submit" >關閉</button>
-        <button type="submit" class="btn btn-black">Login</button>
-        <!-- <button type="submit" class="btn btn-black">Login</button> -->
-        <!-- <button type="submit" class="btn btn-secondary" value="Disabled" disabled>Register</button> -->
-      </form>
+  <link rel='stylesheet' href='../stylesheets/login.css' />
+  <div class="sidenav">
+    <div class="login-main-text">
+      <h2>用戶登入<br> Login Page</h2>
+      <p>Login from here to access.</p>
     </div>
   </div>
-</div>
+  <div class="main">
+    <div class="col-md-6 col-sm-12">
+      <div class="login-form">
+        <form action="./login" method="post">
+          <div class="form-group">
+            <label>User Email</label>
+            <input type="text" name="email" class="form-control" placeholder="User Email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-black">Login</button>
+          <!-- <button type="submit" class="btn btn-black">Login</button> -->
+          <input type="button" class="btn btn-secondary" value="register" onclick="location.href='./register'"></input>
+        </form>
+      </div>
+    </div>
+  </div>
 
 
-        <%- include('footer') %>
+  <%- include('footer') %>
