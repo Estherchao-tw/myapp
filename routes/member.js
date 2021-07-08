@@ -3,13 +3,20 @@
 var express = require("express");
 var router = express.Router();
 const { check, validationResult } = require('express-validator');
-
 const modifyController = require("../controllers/modifyController");
- router.get("/", function(req, res, next) {
+
+
+router.get('/', function (req, res, next) {
+  res.render('index', {
+    isLogin: '123',
+    title: 'homess'
+  });
+});
+ router.get("/register", function(req, res, next) {
    res.render("register");
  });
  
- router.post("/",[
+ router.post("/register",[
    check('username').isLength({ min: 6 })
      .withMessage('名字必填，且不能是空格。Username Must Be at Least 6 Characters')
      .matches('[A-Z]').withMessage('Password Must Contain an Uppercase Letter').trim().escape(),
@@ -24,10 +31,9 @@ const modifyController = require("../controllers/modifyController");
    }),
    check('email').isEmail().trim().escape().normalizeEmail().withMessage('信箱格式錯誤')],modifyController.getUsers);
 
-
-router.get('/', function (req, res, next) {
+router.get('/login', function (req, res, next) {
   res.render('login');
 });
-router.post("/", modifyController.getLogin);
+router.post("/login", modifyController.getLogin);
   
 module.exports = router;
