@@ -3,6 +3,7 @@ const db = require("../utils/shopdb");
 const jwt = require('jsonwebtoken');
 const config = require('../config/development_config');
 
+
 const MemberLogin = class MemberLogin {
 
   constructor(userid, date, name, passwordkey, img, img_name, create_date) {
@@ -33,11 +34,20 @@ const MemberLogin = class MemberLogin {
       if (rows[i].email == memberData.email){
         if (memberData.passwordkey == rows[i].passwordkey) {
           //token 
+          // const payload = {
+          //   user_id: rows[i].userid,
+          //   user_name: rows[i].name,
+          //   user_email: rows[i].email
+          // };
           const token = jwt.sign({
+            
             algorithm:"HS256",
             exp:Math.floor(Date.now()/1000 + (60 * 60)),//valid in a hour
-            data:rows[0].userid
+            data:rows[i].userid
           }, config.secret);
+          // console.log(token);
+         
+
           result = { code: 0, checkLogin: check_p,token:token };
         } else {
           console.log("pw", rows[i].passwordkey, memberData.passwordkey);
@@ -57,9 +67,7 @@ const MemberLogin = class MemberLogin {
       return result;
     }
     
-    static async varifyToken(token) {
-      return;
-    }
+    
   };
 
 

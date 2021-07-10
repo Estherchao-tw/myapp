@@ -1,9 +1,12 @@
 const Check= class CheckCustomer {
-  //判斷email格式
-  static checkEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const result = re.test(email);
-    return result;
-  };
+  //判斷空值
+  static checkNull(data) {
+    for (var key in data) {
+      // 不為空
+      return false;
+    }
+    // 為空值
+    return true;
+  }
 };
 module.exports = Check;

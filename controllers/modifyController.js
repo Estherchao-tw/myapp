@@ -2,6 +2,7 @@
 const { validationResult } = require('express-validator');
 const Register = require("../models/registerModel");
 const MemberLogin = require("../models/loginModel");
+const verify = require("../models/varification");
 
 const encryption = require('../models/encryption');
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
@@ -80,19 +81,38 @@ exports.getLogin = async (req, res, next) => {
       });
 
     } else if (rows.checkLogin == "success") {
-      res.setHeader('token', rows.token);
-      // res.status(200).json({
-      //   result: {
-      //     status: '登入成功',
-      //     loginMember: "歡迎 登入",
-      //     token: rows.token
-      //   }
-      // })
-      res.redirect('/');
+      res.status(200).json({
+        result: {
+          status: '登入成功',
+          loginMember: "歡迎 登入",
+          token: rows.token
+          
+        }
+      })
+      // res.redirect('/');
       // res.redirect('/login');
+    
     }
     return;
 
   });
 };
 
+
+
+exports.getmember = async(req,res,next) => {
+  //從header找token
+  const token = req.headers['x-access-token'];
+  if (token){
+    //判斷token
+    verify(token).then(tokenResult => {
+      if (tokenResult === false) {
+        res.status(422).json({ errorMessages: "token錯誤。", err: "請重新登入。" });
+      } else {
+        res.json({ test: "token正確" })
+      }
+    })
+  } else {
+    res.status(403).send({ message: 'token錯誤。'})
+  }
+};
