@@ -2,8 +2,9 @@
 const { validationResult } = require('express-validator');
 const Register = require("../models/registerModel");
 const MemberLogin = require("../models/loginModel");
+const MemberUpdate = require("../models/updateModel");
 const verify = require("../models/varification");
-
+const formidable = require('formidable');
 const encryption = require('../models/encryption');
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
   // Build your resulting errors however you want! String, object, whatever - it works!
@@ -110,11 +111,36 @@ exports.getmember = async(req,res,next) => {
       if (tokenResult === false) {
         res.status(422).json({ errorMessages: "token錯誤。", err: "請重新登入。" });
       } else {
-        res.json({ test: "token正確" })
+        // res.json({ test: "token正確" })
+        const id = tokenResult;
+        //密碼加密
+        //client data
+        const memberUpdateData = {
+          name: req.body.name,
+          passwordkey: encryption(req.body.password),
+        }
 
+        console.log(memberUpdateData);
+
+        MemberUpdate.updateAction(id,memberUpdateData).then((rows,err,result) => {
+          if (err) throw err;
+          else res.json({ msg: rows.checkUpdate})
+        } )
       }
     })
   } else {
     res.status(403).send({ message: 'token錯誤。'})
   }
+};
+
+
+exports.putUpdateImage = async(req, res, next) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    res.json({
+      name: fields.name,
+      password: fields.password,
+      file: files.file
+    })
+  })
 };

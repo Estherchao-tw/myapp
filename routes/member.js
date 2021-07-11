@@ -22,12 +22,14 @@ router.post("/register", [
   }),
   check('email').isEmail().trim().escape().normalizeEmail().withMessage('信箱格式錯誤')], modifyController.getUsers);
   
-  router.get('/login', function (req, res, next) {
+router.get('/login', function (req, res, next) {
     res.render('login');
   });
-  router.post("/login", modifyController.getLogin);
+router.post("/login", modifyController.getLogin);
 
-  router.get('/',modifyController.getmember);
+router.put('/',modifyController.getmember);
+
+router.put('/updateimg', modifyController.putUpdateImage);
   
   
   module.exports = router;
