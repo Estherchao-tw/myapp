@@ -101,6 +101,7 @@ exports.getLogin = async (req, res, next) => {
 
 
 exports.getmember = async(req,res,next) => {
+  var isLogin ;
   //從header找token
   const token = req.headers['x-access-token'];
   if (token){
@@ -110,6 +111,7 @@ exports.getmember = async(req,res,next) => {
         res.status(422).json({ errorMessages: "token錯誤。", err: "請重新登入。" });
       } else {
         res.json({ test: "token正確" })
+
       }
     })
   } else {
