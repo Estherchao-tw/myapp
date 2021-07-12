@@ -3,6 +3,8 @@ var router = express.Router();
 const { check } = require('express-validator');
 const modifyController = require("../controllers/modifyController");
 
+
+
 router.get("/register", function (req, res, next) {
   res.render("register");
 });
@@ -21,15 +23,18 @@ router.post("/register", [
     } return true
   }),
   check('email').isEmail().trim().escape().normalizeEmail().withMessage('信箱格式錯誤')], modifyController.getUsers);
-  
+
 router.get('/login', function (req, res, next) {
-    res.render('login');
-  });
+  res.render('login');
+});
 router.post("/login", modifyController.getLogin);
 
 router.put('/',modifyController.getmember);
 
-router.put('/updateimg', modifyController.putUpdateImage);
-  
-  
+// router.get('/updateing', function (req, res) {
+//   res.render('updateing');
+// });
+
+router.put('/updateing',modifyController.putUpdateImage);
+
   module.exports = router;

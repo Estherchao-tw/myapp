@@ -4,7 +4,9 @@ const Register = require("../models/registerModel");
 const MemberLogin = require("../models/loginModel");
 const MemberUpdate = require("../models/updateModel");
 const verify = require("../models/varification");
-const formidable = require('formidable');
+const check = require("../service/member_check");
+var formidable = require('formidable');
+const fs = require('fs');
 const encryption = require('../models/encryption');
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
   // Build your resulting errors however you want! String, object, whatever - it works!
@@ -102,7 +104,6 @@ exports.getLogin = async (req, res, next) => {
 
 
 exports.getmember = async(req,res,next) => {
-  var isLogin ;
   //從header找token
   const token = req.headers['x-access-token'];
   if (token){
@@ -134,13 +135,76 @@ exports.getmember = async(req,res,next) => {
 };
 
 
-exports.putUpdateImage = async(req, res, next) => {
-  const form = new formidable.IncomingForm();
-  form.parse(req, function (err, fields, files) {
-    res.json({
-      name: fields.name,
-      password: fields.password,
-      file: files.file
+exports.putUpdateImage = (req, res, next) => {
+  var form = new formidable.IncomingForm();
+  const token = req.headers['x-access-token'];
+  if (token) {
+    //判斷token
+    verify(token).then(tokenResult => {
+      if (tokenResult === false) {
+        res.status(422).json({ errorMessages: "token錯誤。", err: "請重新登入。" });
+      } else {
+        // res.json({ test: "token正確" })
+
+
+        form.parse(req, async function (name, fields, files) {
+          // console.log(fields, files);
+          // console.log('Uploaded ' + files.file.name);
+          // console.log('Uploaded ' + files.file.type);
+          if (check.checkFileSize(files.file.size) === true) {
+            res.json({ message: "上傳檔案失敗", error: "請上傳小於1MB的檔案" })
+          }
+          if (check.checkFileType(files.file.type) === true) {
+
+            const image = await fileToBase64(files.file.path);
+
+
+            const id = tokenResult;
+            const password = encryption(fields.password);
+            //密碼加密
+            //client data
+            const memberUpdateData = {
+              name: fields.name,
+              passwordkey: password,
+              img: image
+            }
+
+            console.log(memberUpdateData);
+
+            MemberUpdate.updateAction(id, memberUpdateData).then((rows, err, result) => {
+              if (err) throw err;
+              else res.json({ msg: rows.checkUpdate })
+            })
+            // res.json({
+            //   name: fields.name,
+            //   password: fields.password,
+            //   file: files
+            // })
+          } else { res.json({ message: "上傳檔案失敗", error: "請選正確檔案格式。" }) }
+          // res.json({ fields, files });
+          return;
+        });
+
+
+
+      }
     })
-  })
-};
+  } else {
+    res.status(403).send({ message: 'token錯誤。' })
+  }
+
+
+
+
+
+
+
+
+  const fileToBase64 = (filePath) => {
+    return new Promise((resolve, reject) => {
+      fs.readFile(filePath, 'base64', function (err, data) {
+        resolve(data);
+      })
+    })
+  }
+  };
