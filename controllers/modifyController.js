@@ -145,8 +145,6 @@ exports.putUpdateImage = (req, res, next) => {
         res.status(422).json({ errorMessages: "token錯誤。", err: "請重新登入。" });
       } else {
         // res.json({ test: "token正確" })
-
-
         form.parse(req, async function (name, fields, files) {
           // console.log(fields, files);
           // console.log('Uploaded ' + files.file.name);
@@ -175,13 +173,8 @@ exports.putUpdateImage = (req, res, next) => {
               if (err) throw err;
               else res.json({ msg: rows.checkUpdate })
             })
-            // res.json({
-            //   name: fields.name,
-            //   password: fields.password,
-            //   file: files
-            // })
+
           } else { res.json({ message: "上傳檔案失敗", error: "請選正確檔案格式。" }) }
-          // res.json({ fields, files });
           return;
         });
 
@@ -192,13 +185,6 @@ exports.putUpdateImage = (req, res, next) => {
   } else {
     res.status(403).send({ message: 'token錯誤。' })
   }
-
-
-
-
-
-
-
 
   const fileToBase64 = (filePath) => {
     return new Promise((resolve, reject) => {
