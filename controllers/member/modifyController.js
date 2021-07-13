@@ -1,13 +1,13 @@
 // controllers/modifyController.js
 const { validationResult } = require('express-validator');
-const Register = require("../models/registerModel");
-const MemberLogin = require("../models/loginModel");
-const MemberUpdate = require("../models/updateModel");
-const verify = require("../models/varification");
-const check = require("../service/member_check");
+const Register = require("../../models/member/registerModel");
+const MemberLogin = require("../../models/member/loginModel");
+const MemberUpdate = require("../../models/member/updateModel");
+const verify = require("../../models/member/varification");
+const check = require("../../service/member_check");
 var formidable = require('formidable');
 const fs = require('fs');
-const encryption = require('../models/encryption');
+const encryption = require('../../models/member/encryption');
 const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
   // Build your resulting errors however you want! String, object, whatever - it works!
   return `${value}${location}[${param}]: ${msg}`;
@@ -158,7 +158,6 @@ exports.putUpdateImage = (req, res, next) => {
 
 
             const id = tokenResult;
-            const password = encryption(fields.password);
             //密碼加密
             //client data
             const memberUpdateData = {
@@ -193,4 +192,38 @@ exports.putUpdateImage = (req, res, next) => {
       })
     })
   }
+  };
+
+
+exports.putUpdateImage1 = (req, res, next) => {
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, async function (name, fields, files) {
+    console.log(fields, files);
+    // console.log('Uploaded ' + files.file.name);
+    // console.log('Uploaded ' + files.file.type);
+    if (check.checkFileSize(files.file.size) === true) {
+      res.json({ message: "上傳檔案失敗", error: "請上傳小於1MB的檔案" })
+    }
+    if (check.checkFileType(files.file.type) === true) {
+
+      const image = await fileToBase64(files.file.path);
+
+      res.json({
+        name: fields.name,
+        img: image
+      })
+    } else { res.json({ message: "上傳檔案失敗", error: "請選正確檔案格式。" }) }
+    // res.json({ fields, files });
+    
+
+    return;
+  });
+    const fileToBase64 = (filePath) => {
+      return new Promise((resolve, reject) => {
+        fs.readFile(filePath, 'base64', function (err, data) {
+          resolve(data);
+        })
+      })
+    }
   };

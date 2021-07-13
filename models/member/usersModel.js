@@ -1,5 +1,5 @@
 // models/usersModel.js
-const db = require("../utils/shopdb");
+const db = require(".././utils/shopdb");
 const Users = class users {
   constructor(userid, date, name, passwordkey, img, img_name, create_date) {
     this.userid = userid;

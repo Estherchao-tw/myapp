@@ -1,7 +1,7 @@
 // models/usersModel.js
-const db = require("../utils/shopdb");
+const db = require("../../utils/shopdb");
+const config = require('../../config/development_config');
 const jwt = require('jsonwebtoken');
-const config = require('../config/development_config');
 
 
 const MemberLogin = class MemberLogin {

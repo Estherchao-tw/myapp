@@ -1,6 +1,6 @@
 // models/registerModel.js
 const { check } = require("express-validator");
-const db = require("../utils/shopdb");
+const db = require("../../utils/shopdb");
 const UsersTest = class UsersTest {
 
   constructor(userid, date, name, passwordkey, img, img_name, create_date) {

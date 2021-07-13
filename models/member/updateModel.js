@@ -1,5 +1,5 @@
 // models/registerModel.js
-const db = require("../utils/shopdb");
+const db = require("../../utils/shopdb");
 const MemberUpdate = class MemberUpdate {
 
   constructor(userid, date, name, passwordkey, img, img_name, create_date) {

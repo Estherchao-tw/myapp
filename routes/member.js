@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { check } = require('express-validator');
-const modifyController = require("../controllers/modifyController");
+const modifyController = require("../controllers/member/modifyController");
 
 
 
@@ -36,5 +36,6 @@ router.put('/',modifyController.getmember);
 // });
 
 router.put('/updateing',modifyController.putUpdateImage);
+router.put('/up',modifyController.putUpdateImage1);
 
   module.exports = router;
